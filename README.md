@@ -11,9 +11,8 @@
 | last_name          | string | null: false |
 | first_name_kana    | string | null: false |
 | last_name_kana     | string | null: false |
-| birth_year         | integer| null: false |
-| birth_month        | integer| null: false |
-| birth_day          | integer| null: false |
+| birthday           | date   | null: false |
+
 
 ### Association
 
@@ -49,6 +48,7 @@
 | house_number    | string | null: false |
 | building        | string |             |
 | tell            | string | null: false |
+| order          | references |null: false, foreign_key: true|
 
 ### Association
 
@@ -67,7 +67,7 @@
 | quality_id        | integer | null: false |
 | postage_id        | integer | null: false |
 | prefecture_id     | integer | null: false |
-| shipping_days_id  | integer | null: false |
+| shipping_day_id   | integer | null: false |
 | price             | integer | null: false |
 | user           | references |null: false, foreign_key: true|
 
