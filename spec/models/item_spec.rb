@@ -32,28 +32,28 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Description is too long (maximum is 1000 characters)")
       end
-      it "category_idが空では登録できない" do
-        @item.category_id = ''
+      it "category_idが1では登録できない" do
+        @item.category_id = '1'
         @item.valid?
         expect(@item.errors.full_messages).to include("Category を選択してください")
       end
-      it "quality_idが空では登録できない" do
-        @item.quality_id = ''
+      it "quality_idが1では登録できない" do
+        @item.quality_id = '1'
         @item.valid?
         expect(@item.errors.full_messages).to include("Quality を選択してください")
       end
-      it "postage_idが空では登録できない" do
-        @item.postage_id = ''
+      it "postage_idが1では登録できない" do
+        @item.postage_id = '1'
         @item.valid?
         expect(@item.errors.full_messages).to include("Postage を選択してください")
       end
-      it "prefecture_idが空では登録できない" do
-        @item.prefecture_id = ''
+      it "prefecture_idが1では登録できない" do
+        @item.prefecture_id = '1'
         @item.valid?
         expect(@item.errors.full_messages).to include("Prefecture を選択してください")
       end
-      it "shipping_day_idが空では登録できない" do
-        @item.shipping_day_id = ''
+      it "shipping_day_idが1では登録できない" do
+        @item.shipping_day_id = '1'
         @item.valid?
         expect(@item.errors.full_messages).to include("Shipping day を選択してください")
       end
@@ -81,6 +81,11 @@ RSpec.describe Item, type: :model do
         @item.image = ''
         @item.valid?
         expect(@item.errors.full_messages).to include("Image can't be blank")
+      end
+      it "userが紐づいていなければ登録できない" do
+        @item.user = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include("User must exist")
       end
     end
   end
