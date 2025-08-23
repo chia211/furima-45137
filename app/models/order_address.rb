@@ -10,7 +10,7 @@ class OrderAddress
     validates :post_code, presence: true, format: {with: /\A[0-9]{3}-[0-9]{4}\z/, message: "is invalid. Include hyphen(-)"}
     validates :cities
     validates :house_number
-    validates :tell
+    validates :tell, format: { with: /\A\d{10,11}\z/, message: "is invalid" }
     validates :user_id
     validates :item_id
   end
