@@ -1,5 +1,6 @@
 class OrderAddress
   include ActiveModel::Model
+  attr_accessor :token
   attr_accessor :user_id, :item_id, :post_code, :prefecture_id, :cities, :house_number, :building, :tell
 
   with_options numericality: { other_than: 1, message: "を選択してください" } do

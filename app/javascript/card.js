@@ -8,8 +8,8 @@ const pay = () => {
   numberElement.mount('#number-form');
   expiryElement.mount('#expiry-form');
   cvcElement.mount('#cvc-form');
-  const form = document.getElementById('button')
-  form.addEventListener("click", (e) => {
+  const form = document.getElementById('charge-form')
+  form.addEventListener("submit", (e) => {
     payjp.createToken(numberElement).then(function (response) {
       if (response.error) {
       } else {
@@ -21,7 +21,7 @@ const pay = () => {
       numberElement.clear();
       expiryElement.clear();
       cvcElement.clear();
-      document.getElementById("button").submit();
+      document.getElementById("charge-form").submit();
     });
     e.preventDefault();
   });
