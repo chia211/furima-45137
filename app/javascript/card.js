@@ -21,6 +21,7 @@ const pay = () => {
       numberElement.clear();
       expiryElement.clear();
       cvcElement.clear();
+      document.getElementById("button").submit();
     });
     e.preventDefault();
   });
