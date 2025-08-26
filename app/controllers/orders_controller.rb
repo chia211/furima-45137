@@ -1,10 +1,15 @@
 class OrdersController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_item
+  before_action :move_to_root_path
+  before_action :redirect_if_seller, only: [:index, :create]
+  
   def index
     gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
     @order_address = OrderAddress.new
 
   end
+
 
   def create
     @order_address = OrderAddress.new(order_params.merge(item_id: @item.id))
@@ -23,6 +28,18 @@ class OrdersController < ApplicationController
   def set_item
     @item = Item.find(params[:item_id])
   end
+
+  def move_to_root_path
+    if @item.order.present? && @item.user_id != current_user.id
+      redirect_to root_path
+    end
+  end
+
+  def redirect_if_seller
+  if @item.user_id == current_user.id 
+    redirect_to root_path
+  end
+end
 
   def order_params
     params.require(:order_address)
