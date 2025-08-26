@@ -24,7 +24,12 @@ RSpec.describe OrderAddress, type: :model do
         @order_address.valid?
         expect(@order_address.errors.full_messages).to include("Post code can't be blank")
       end
-      it 'postal_codeが半角のハイフンを含んだ正しい形式でないと保存できないこと' do
+      it 'postal_codeが半角文字列の3桁-4桁でないと保存できないこと' do
+        @order_address.post_code = '１２３-４５６７'
+        @order_address.valid?
+        expect(@order_address.errors.full_messages).to include("Post code is invalid. Include hyphen(-)")
+      end
+      it 'postal_codeがハイフンを含んだ正しい形式でないと保存できないこと' do
         @order_address.post_code = '12345'
         @order_address.valid?
         expect(@order_address.errors.full_messages).to include("Post code is invalid. Include hyphen(-)")
@@ -49,8 +54,23 @@ RSpec.describe OrderAddress, type: :model do
         @order_address.valid?
         expect(@order_address.errors.full_messages).to include("Tell can't be blank")
       end
-      it 'tellが10桁以上11桁以内の半角数値でないと保存できないこと' do
+      it 'tellが9桁以下の半角の時は保存できないこと' do
         @order_address.tell = '123456789'
+        @order_address.valid?
+        expect(@order_address.errors.full_messages).to include("Tell is invalid")
+      end
+      it 'tellが12桁以上の半角数値の場合は保存できないこと' do
+        @order_address.tell = '123456789012'
+        @order_address.valid?
+        expect(@order_address.errors.full_messages).to include("Tell is invalid")
+      end
+      it 'tellが全角数値だと保存できないこと' do
+        @order_address.tell = '１２３４５６７８９０'
+        @order_address.valid?
+        expect(@order_address.errors.full_messages).to include("Tell is invalid")
+      end
+      it 'tellが半角数値以外が含まれると保存できないこと' do
+        @order_address.tell = '123-4567-8901'
         @order_address.valid?
         expect(@order_address.errors.full_messages).to include("Tell is invalid")
       end
